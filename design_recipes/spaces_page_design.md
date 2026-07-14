@@ -38,9 +38,33 @@ def test_index_page_returns_200():
     # assert that client.get("/") response is 200
 
 """
-Test that 
+Test that spaces repository can return all spaces
 """
+def test_spaces_repository_returns_all_spaces():
+    # connect to spaces database
+    # instaciate SpacesRepository
+    # pass database connection into respository
+    # call all() method to get list of strings
+    # assert that the list of strings is == seed data
 
+"""
+Test spaces model instances with the name, address, discription, ppn, id=None
+"""
+def test_spaces_model_instances_with_name_address_description_price_per_night_id():
+    # Instantiate Spaces model
+    # Assert each object attribute == provided variables
+
+"""
+Test spaces model formats to strings
+"""
+def test_spaces_model_formats_to_strings():
+    # use given string formatting test
+
+"""
+Test two spaces model objects can be easily compared
+"""
+def test_two_spaces_model_objects_can_be_easily_compared():
+    # use given comparison test
 
 
 ```
