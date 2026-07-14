@@ -9,4 +9,7 @@ class Space:
     def __repr__(self):
         return f"Space({self.name}, {self.address}, {self.description}, {self.price_per_night:.2f}, {self.id})"
     
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+    
 

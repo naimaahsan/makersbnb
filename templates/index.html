@@ -10,6 +10,11 @@
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <p>This is the homepage.</p>
+        <a href="/signup">Sign up</a>
+        <ul>
+            {% for space in spaces %}
+            <li>{{space.name}}, {{space.address}}. Description: {{space.description}}. Price: {{space.price_per_night}} To book call 0800-book-a-space</li>
+            {% endfor %}
+        </ul>
     </body>
 </html>

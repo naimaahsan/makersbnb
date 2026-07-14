@@ -15,3 +15,7 @@ def test_spaces_model_formats_to_strings():
 
     assert str(space) == "Space(House, 1 fake road, This is a nice house, 90.00, 1)"
 
+def test_two_spaces_model_objects_can_be_easily_compared():
+    space1 = Space('House', '1 fake road', 'This is a nice house', 90.00, 1)
+    space2 = Space('House', '1 fake road', 'This is a nice house', 90.00, 1)
+    assert space1 == space2
