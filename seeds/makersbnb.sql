@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 DROP SEQUENCE IF EXISTS users_id_seq;
-DROP TABLE IF EXISTS spaces;
+DROP TABLE IF EXISTS spaces CASCADE;
 DROP SEQUENCE IF EXISTS spaces_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
@@ -29,4 +29,4 @@ INSERT INTO spaces (name, description, address, price_per_night, user_id) VALUES
     ('Cool House', 'Small flat', '8 Fake Street, Faketown', 100.00, 1),
     ('My House', 'Large flat', '9 Fake Street, Faketown', 125.00, 1),
     ('Top House', 'Bungalow', '15 Fake Road, Faketown', 99.00, 2),
-    ('Party House', 'Penthouse', '85 Fake Road, Faketown', 200.00, 3);
+    ('Party House', 'Penthouse', '85 Fake Road, Faketown', 200.00, 3);;
