@@ -1,6 +1,6 @@
 import os, psycopg
 from flask import g
-from psycopg.rows import dict_row
+from psycopg.rows import dict_row, class_row
 
 
 # This class helps us interact with the database.
@@ -38,11 +38,14 @@ class DatabaseConnection:
             cursor.execute(open(sql_filename, "r").read())
             self.connection.commit()
 
+    def make_class_row(self, cls):
+        return class_row(cls)
+
     # This method executes an SQL query on the database.
     # It allows you to set some parameters too. You'll learn about this later.
-    def execute(self, query, params=[]):
+    def execute(self, query, params=[], row_factory=dict_row):
         self._check_connection()
-        with self.connection.cursor() as cursor:
+        with self.connection.cursor(row_factory=row_factory) as cursor:
             cursor.execute(query, params)
             if cursor.description is not None:
                 result = cursor.fetchall()
