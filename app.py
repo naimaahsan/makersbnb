@@ -6,6 +6,9 @@ from lib.login_required import *
 from lib.database_connection import DatabaseConnection
 from lib.space_repository import SpaceRepository
 from lib.space import Space
+from flask import Flask, request, render_template
+from lib.database_connection import get_flask_database_connection
+from lib.space_repository import SpaceRepository
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -16,10 +19,14 @@ app.secret_key = 'dev-secret-key'
 # GET /index
 # Returns the homepage
 # Try it:
-#   ; open http://localhost:5001/index
-@app.route('/index', methods=['GET'])
+#   ; open http://localhost:5001/
+@app.route('/', methods=['GET'])
 def get_index():
-    return render_template('index.html')
+    connection = get_flask_database_connection(app)
+    spaces_repository = SpaceRepository(connection)
+    spaces = spaces_repository.all()
+    return render_template('index.html', spaces=spaces)
+
 
 @app.route('/login', methods=['GET'])
 def get_login():
@@ -35,7 +42,7 @@ def login():
         return redirect('/login')
     session['user_id'] = user_id
     session['email'] = login_details['email']
-    return redirect('/index')
+    return redirect('/')
 
 
 @app.route('/signup', methods=['GET'])
@@ -53,11 +60,11 @@ def signup():
     return redirect('/login')
 
 @app.route('/spaces', methods=["GET"])
+@login_required
 def get_spaces():
     connection = get_flask_database_connection(app)  
     space_repository = SpaceRepository(connection)        
-    spaces = space_repository.all()                     
-    return render_template("/spaces.html", spaces=spaces) 
+    return render_template("/spaces.html")
 
 @app.route('/spaces', methods=["POST"])
 def create_space():
@@ -66,7 +73,7 @@ def create_space():
     space_details = request.form
     space = Space(name= space_details["name"], description = space_details["description"], address = space_details["address"], price_per_night=space_details["price_per_night"])
     space_repository.create(space)
-    return redirect("/spaces")
+    return redirect("/")
 
 
 # These lines start the server if you run this file directly

@@ -10,6 +10,15 @@
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <p>This is the homepage.</p>
+        <a href="/signup">Sign up</a>
+        <a href="/login">Log in</a>
+        <a href="/spaces">Create a Space</a>
+
+            {% for space in spaces %}
+                <h3> {{ space.name }} </h3>
+                <p> Description: {{ space.description }} </p>  
+                <p> Address: {{ space.address }} </p>  
+                <p> Price: £{{ space.price_per_night }}</p>
+            {% endfor %}
     </body>
 </html>
