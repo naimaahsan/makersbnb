@@ -20,7 +20,7 @@ def test_create_new_listing(db_connection):
 
     repo = SpaceRepository(db_connection)
 
-    new_space = Space("Cozy Cottage", "Guest Favourite", "Cornway", 100.00, 1)
+    new_space = Space("Cozy Cottage", "Guest Favourite", "Cornwall", 100.00, 1)
 
     repo.create(new_space)
 
@@ -29,5 +29,5 @@ def test_create_new_listing(db_connection):
         Space('My House', 'Large flat', '9 Fake Street, Faketown', 125.00, 1, 2),
         Space('Top House', 'Bungalow', '15 Fake Road, Faketown', 99.00, 2, 3),
         Space('Party House', 'Penthouse', '85 Fake Road, Faketown', 200.00, 3, 4),
-        Space("Cozy Cottage", "Guest Favourite", "Cornway", 100.00, 1, 5)
+        Space("Cozy Cottage", "Guest Favourite", "Cornwall", 100.00, 1, 5)
     ]
