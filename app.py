@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, render_template, redirect, session
 from lib.database_connection import get_flask_database_connection, DatabaseConnection
 from lib.user_repository import *
+from lib.login_required import *
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -17,6 +18,7 @@ user_repo = UserRepository(db_connection)
 # Try it:
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
+@login_required
 def get_index():
     return render_template('index.html')
 
