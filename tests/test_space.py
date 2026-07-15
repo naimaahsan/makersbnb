@@ -1,21 +1,19 @@
 from lib.space import Space
 
-def test_spaces_model_instances_with_name_address_description_price_per_night_id():
-    # Instantiate Spaces model
-    space = Space('House', '1 fake road', 'This is a nice house', 90.00, 1)
-    # Assert each object attribute == provided variables
-    assert space.name == 'House'
-    assert space.address == '1 fake road'
-    assert space.description == 'This is a nice house'
-    assert space.price_per_night == 90.00
-    assert space.id == 1
+def test_instantiates():
+    space = Space("Cozy Cottage", "Guest Favourite", "Cornwall", 100.00, 1, 1)
+    assert space.id == 1 
+    assert space.name == "Cozy Cottage"
+    assert space.address == "Cornwall"
+    assert space.description == "Guest Favourite"
+    assert space.price_per_night == 100.00
+    assert space.user_id == 1
 
-def test_spaces_model_formats_to_strings():
-    space = Space('House', '1 fake road', 'This is a nice house', 90.00, 1)
+def test_equality():
+    space_1 = Space("Cozy Cottage", "Guest Favourite", "Cornwall", 100.00, 1, 1)
+    space_2 = Space("Cozy Cottage", "Guest Favourite", "Cornwall", 100.00, 1, 1)
+    assert space_1 == space_2
 
-    assert str(space) == "Space(House, 1 fake road, This is a nice house, 90.00, 1)"
-
-def test_two_spaces_model_objects_can_be_easily_compared():
-    space1 = Space('House', '1 fake road', 'This is a nice house', 90.00, 1)
-    space2 = Space('House', '1 fake road', 'This is a nice house', 90.00, 1)
-    assert space1 == space2
+def test_formats_correctly():
+    space = Space("Cozy Cottage", "Guest Favourite", "Cornwall", 100, 1, 1)
+    assert str(space) == "Space(1, Cozy Cottage, Guest Favourite, Cornwall, 100, 1)"

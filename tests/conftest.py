@@ -13,6 +13,11 @@ def db_connection():
     conn.connect()
     return conn
 
+@pytest.fixture
+def clean_db(db_connection, scope="function"):
+    db_connection.seed("seeds/makersbnb.sql")
+    return db_connection
+
 # This fixture starts the test server and makes it available to the tests.
 # You don't need to understand it in detail.
 @pytest.fixture
