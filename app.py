@@ -42,7 +42,7 @@ def login():
         return redirect('/login')
     session['user_id'] = user_id
     session['email'] = login_details['email']
-    return redirect('/index')
+    return redirect('/')
 
 
 @app.route('/signup', methods=['GET'])
@@ -60,11 +60,11 @@ def signup():
     return redirect('/login')
 
 @app.route('/spaces', methods=["GET"])
+@login_required
 def get_spaces():
     connection = get_flask_database_connection(app)  
     space_repository = SpaceRepository(connection)        
-    spaces = space_repository.all()                     
-    return render_template("/spaces.html", spaces=spaces) 
+    return render_template("/spaces.html")
 
 @app.route('/spaces', methods=["POST"])
 def create_space():
@@ -73,7 +73,7 @@ def create_space():
     space_details = request.form
     space = Space(name= space_details["name"], description = space_details["description"], address = space_details["address"], price_per_night=space_details["price_per_night"])
     space_repository.create(space)
-    return redirect("/spaces")
+    return redirect("/")
 
 
 # These lines start the server if you run this file directly

@@ -20,7 +20,7 @@ def test_login_page_with_valid_login_details(page: Page, clean_db):
     page.locator("#email").fill("user1@email.com")
     page.locator("#password").fill("password1")
     page.get_by_role("button", name="Login").click()
-    expect(page).to_have_url("http://localhost:5001/index")
+    expect(page).to_have_url("http://localhost:5001/")
 
 """
 Test that the a user with invalid credentials is not logged in

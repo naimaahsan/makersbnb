@@ -18,13 +18,6 @@
                     <input type="submit" value="Submit">
                     <p>*Required</p>
             </form>
-
-            {% for space in spaces %}
-                <h3> {{ space.name }} </h3>
-                <p> Description: {{ space.description }} </p>  
-                <p> Address: {{ space.address }} </p>  
-                <p> Price: £{{ space.price_per_night }}</p>
-            {% endfor %}
         </main>
     </body>
 </html>

@@ -11,10 +11,14 @@
     </head>
     <body>
         <a href="/signup">Sign up</a>
-        <ul>
+        <a href="/login">Log in</a>
+        <a href="/spaces">Create a Space</a>
+
             {% for space in spaces %}
-            <li>{{space.name}}, {{space.address}}. Description: {{space.description}}. Price: {{space.price_per_night}} To book call 0800-book-a-space</li>
+                <h3> {{ space.name }} </h3>
+                <p> Description: {{ space.description }} </p>  
+                <p> Address: {{ space.address }} </p>  
+                <p> Price: £{{ space.price_per_night }}</p>
             {% endfor %}
-        </ul>
     </body>
 </html>
