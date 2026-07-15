@@ -2,17 +2,22 @@
 <html>
     <head>
         <title>MakersBnB</title>
-
         <!--
             Head to https://github.com/makersacademy/web-applications-in-python/blob/main/pills/loading_css_or_static_files.md
             If you're wondering how the CSS file below is being loaded.
         -->
-        <link rel="stylesheet" href="/static/style.css" >
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
-        <a href="/signup">Sign up</a>
-        <a href="/login">Log in</a>
-        <a href="/spaces">Create a Space</a>
+        <header>
+            <nav>
+            <a href="/signup">Sign up</a>
+            <a href="/login">Log in</a>
+            <a href="/spaces">Create a Space</a>
+            </nav>
+            <h1>MakersBnB</h1>
+        </header>
+       
 
             {% for space in spaces %}
                 <h3> {{ space.name }} </h3>
