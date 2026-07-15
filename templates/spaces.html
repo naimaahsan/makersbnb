@@ -1,0 +1,31 @@
+<html>
+    <head>
+        
+        <title>Spaces</title>
+        <link rel="stylesheet" href="/static/spaces.css">
+    </head>
+
+    <body>
+        <h1>Spaces Available</h1>
+        <main> 
+
+            <form class="spaces-form" method="POST" action="/spaces">
+                    <h3>Add a new space</h3>
+                    <input type="text" name="name" placeholder="Name *" required>
+                    <input type="text" name="description" placeholder="Description *" required>
+                    <input type="text" name="address" placeholder="Address *" required>
+                    <input type="text" name="price_per_night" placeholder="Price per night *" required>
+                    <input type="submit" value="Submit">
+                    <p>*Required</p>
+            </form>
+
+            {% for space in spaces %}
+                <h3> {{ space.name }} </h3>
+                <p> Description: {{ space.description }} </p>  
+                <p> Address: {{ space.address }} </p>  
+                <p> Price: £{{ space.price_per_night }}</p>
+            {% endfor %}
+        </main>
+    </body>
+</html>
+
