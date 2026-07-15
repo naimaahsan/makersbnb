@@ -3,7 +3,7 @@ from playwright.sync_api import Page, expect
 """
 Test that the login page loads has the required title
 """
-def test_login_page_elements(page: Page):
+def test_login_page_elements(page: Page, clean_db):
     page.goto('http://localhost:5001/login')
 
     h1 = page.locator('h1')
@@ -12,7 +12,7 @@ def test_login_page_elements(page: Page):
 """
 Test that the a user with valid credentials can log in
 """
-def test_login_page_with_valid_login_details(page: Page):
+def test_login_page_with_valid_login_details(page: Page, clean_db):
     page.goto('http://localhost:5001/login')
 
     h1 = page.locator('h1')
@@ -25,7 +25,7 @@ def test_login_page_with_valid_login_details(page: Page):
 """
 Test that the a user with invalid credentials is not logged in
 """
-def test_login_page_with_invalid_login_details_fails(page: Page):
+def test_login_page_with_invalid_login_details_fails(page: Page, clean_db):
     page.goto('http://localhost:5001/login')
 
     h1 = page.locator('h1')

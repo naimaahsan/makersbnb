@@ -5,8 +5,7 @@ import bcrypt
 Calling all on user repository
 Gives all the users in the database
 """
-def test_get_all_users(db_connection):
-    db_connection.seed('seeds/makersbnb.sql')
+def test_get_all_users(db_connection, clean_db):
     user_repo = UserRepository(db_connection)
     users = user_repo.all()
 
@@ -20,7 +19,7 @@ def test_get_all_users(db_connection):
 Calling create the user repository with a email and plaintext password
 Adds to user to the database with a hashed password
 """
-def test_create_user(db_connection):
+def test_create_user(db_connection, clean_db):
     db_connection.seed('seeds/makersbnb.sql')
     user_repo = UserRepository(db_connection)
     result = user_repo.create('new_user@email.com', 'password123')
@@ -36,7 +35,7 @@ def test_create_user(db_connection):
 Calling verify_user on a email and password that matches a user in DB
 Returns True
 """
-def test_verify_valid_user(db_connection):
+def test_verify_valid_user(db_connection, clean_db):
     db_connection.seed('seeds/makersbnb.sql')
     user_repo = UserRepository(db_connection)
     assert user_repo.verify_user('user1@email.com', 'password1') == 1
@@ -48,7 +47,7 @@ def test_verify_valid_user(db_connection):
 Calling verify_user on a email and password that does not match a user in DB
 Returns False
 """
-def test_verify_user_invalid_users(db_connection):
+def test_verify_user_invalid_users(db_connection, clean_db):
     db_connection.seed('seeds/makersbnb.sql')
     user_repo = UserRepository(db_connection)
     assert not user_repo.verify_user('user10@email.com', 'password1')
@@ -59,7 +58,7 @@ def test_verify_user_invalid_users(db_connection):
 Calling check_email_exists with email in DB 
 Returns true
 """
-def test_check_email_in_db_with_email(db_connection):
+def test_check_email_in_db_with_email(db_connection, clean_db):
     db_connection.seed('seeds/makersbnb.sql')
     user_repo = UserRepository(db_connection)
     assert user_repo.check_email_exists("user1@email.com")

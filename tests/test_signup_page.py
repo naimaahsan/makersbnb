@@ -12,7 +12,7 @@ def test_login_page_elements(page: Page):
 """
 Test that a user with a new email and valid password can sign-up
 """
-def test_login_page_with_valid_login_details(page: Page):
+def test_login_page_with_valid_login_details(page: Page, clean_db):
     page.goto('http://localhost:5001/signup')
 
     h1 = page.locator('h1')
@@ -25,7 +25,7 @@ def test_login_page_with_valid_login_details(page: Page):
 """
 Test that the a user with a non-unique email can't sign-up
 """
-def test_login_page_with_valid_login_details(page: Page):
+def test_login_page_with_valid_login_details(page: Page, clean_db):
     page.goto('http://localhost:5001/signup')
 
     h1 = page.locator('h1')

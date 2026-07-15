@@ -7,9 +7,6 @@ from lib.login_required import *
 # Create a new Flask app
 app = Flask(__name__)
 app.secret_key = 'dev-secret-key'
-db_connection = DatabaseConnection()
-db_connection.connect()
-user_repo = UserRepository(db_connection)
 
 # == Your Routes Here ==
 
@@ -18,7 +15,6 @@ user_repo = UserRepository(db_connection)
 # Try it:
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
-@login_required
 def get_index():
     return render_template('index.html')
 
@@ -28,6 +24,8 @@ def get_login():
 
 @app.route('/login', methods=['POST'])
 def login():
+    db_connection = get_flask_database_connection(app)
+    user_repo = UserRepository(db_connection)
     login_details = request.form
     user_id = user_repo.verify_user(login_details['email'], login_details['password'])
     if not user_id:
@@ -43,6 +41,8 @@ def get_signup():
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    db_connection = get_flask_database_connection(app)
+    user_repo = UserRepository(db_connection)
     signup_details = request.form
     if user_repo.check_email_exists(signup_details['email']):
         return redirect('/signup')
@@ -54,4 +54,4 @@ def signup():
 # if started in test mode.
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))
-    db_connection.seed('seeds/makersbnb.sql')
+
