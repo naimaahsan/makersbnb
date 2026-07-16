@@ -25,7 +25,7 @@ app.secret_key = 'dev-secret-key'
 def get_index():
     connection = get_flask_database_connection(app)
     spaces_repository = SpaceRepository(connection)
-    spaces = spaces_repository.all()
+    spaces = spaces_repository.all_with_email()
     return render_template('index.html', spaces=spaces)
 
 
