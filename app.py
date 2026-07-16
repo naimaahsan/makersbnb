@@ -78,11 +78,13 @@ def create_space():
     space_repository.create(space)
     return redirect("/")
 
-@app.route('/mybookings/<int:user_id>', methods=["GET"])
-# @login_required
-def get_my_booking(user_id):
+@app.route('/mybookings', methods=["GET"])
+@login_required
+def get_my_booking():
     connection = get_flask_database_connection(app)
     my_booking_repository = MyBookingRepository(connection)
+
+    user_id = session['user_id']
 
     user_bookings = my_booking_repository.find_by_user_id(user_id)
     return render_template("/mybookings.html", bookings=user_bookings, user_id=user_id)
