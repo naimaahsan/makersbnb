@@ -68,11 +68,12 @@ def get_spaces():
     return render_template("/spaces.html")
 
 @app.route('/spaces', methods=["POST"])
+@login_required
 def create_space():
     connection = get_flask_database_connection(app) 
     space_repository = SpaceRepository(connection)
     space_details = request.form
-    space = Space(name= space_details["name"], description = space_details["description"], address = space_details["address"], price_per_night=space_details["price_per_night"])
+    space = Space(space_details["name"], space_details["address"], space_details["description"], space_details["price_per_night"], session['user_id'])
     space_repository.create(space)
     return redirect("/")
 

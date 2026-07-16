@@ -1,5 +1,5 @@
 class Space:
-    def __init__(self, name, description, address, price_per_night, user_id=None, id=None):
+    def __init__(self, name, description, address, price_per_night, user_id, id=None):
         self.id = id
         self.name = name
         self.address = address 
