@@ -1,3 +1,5 @@
+from lib.booking import Booking
+
 class BookingRepository:
     def __init__(self, connection):
         self._connection = connection
@@ -30,4 +32,8 @@ class BookingRepository:
             "SET confirmed = TRUE " \
             "WHERE id = %s", [booking_id]
         )
+        return None
+    
+    def create_booking(self, booking):
+        self._connection.execute("INSERT INTO bookings (space_id, user_id, date, confirmed) VALUES (%s, %s, %s, %s)", [booking.space_id, booking.user_id, booking.date, booking.confirmed])
         return None

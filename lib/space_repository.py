@@ -61,3 +61,28 @@ class SpaceRepository:
             [space.name, space.description, space.address, space.price_per_night, space.user_id])
         
         return None
+    
+    def find(self, id):
+        row = self._connection.execute("""SELECT
+                spaces.name,
+                spaces.description,
+                spaces.address,
+                spaces.price_per_night,
+                users.email,
+                spaces.user_id,
+                spaces.id,
+                users.id AS host_id
+            FROM spaces
+            JOIN users ON spaces.user_id = users.id
+            WHERE spaces.id = %s;""", [id])[0]
+
+        space = SpaceEmail(
+                row["name"],
+                row["description"],
+                row["address"],
+                row["price_per_night"],
+                row["email"],
+                row["user_id"],
+                row["id"]
+                )
+        return space
