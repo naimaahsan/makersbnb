@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title> My Bookings</title>
+    </head>
+
+    <body>
+        <h1> My Bookings</h1>
+        <main>
+            {% if bookings %}
+                {% for booking in bookings %}
+
+                    <h3> {{ booking.space_name }}</h3>
+                    <p> Date: {{ booking.date }} </p>
+                    <p> Price: £{{ booking.price_per_night }} per night </p>
+
+                    {% if booking.confirmed %}
+                        <span> Approved </span>
+                    {% else %}
+                        <span> Pending</span>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>You haven't requested any bookings yet!</p>
+            {% endif %}
+        </main>
+    </body>
+</html>

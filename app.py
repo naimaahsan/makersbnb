@@ -10,6 +10,7 @@ from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.user_repository import UserRepository
+from lib.my_booking_repository import MyBookingRepository
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -76,6 +77,15 @@ def create_space():
     space = Space(space_details["name"], space_details["address"], space_details["description"], space_details["price_per_night"], session['user_id'])
     space_repository.create(space)
     return redirect("/")
+
+@app.route('/mybookings/<int:user_id>', methods=["GET"])
+# @login_required
+def get_my_booking(user_id):
+    connection = get_flask_database_connection(app)
+    my_booking_repository = MyBookingRepository(connection)
+
+    user_bookings = my_booking_repository.find_by_user_id(user_id)
+    return render_template("/mybookings.html", bookings=user_bookings, user_id=user_id)
 
 
 # These lines start the server if you run this file directly
