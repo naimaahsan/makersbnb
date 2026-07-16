@@ -1,15 +1,15 @@
 import os
 from flask import Flask, request, render_template, redirect, session, redirect
-from lib.database_connection import get_flask_database_connection, DatabaseConnection
-from lib.user_repository import *
-from lib.login_required import *
-from lib.database_connection import DatabaseConnection
+from lib.database_connection import get_flask_database_connection
+from lib.user_repository import UserRepository
+from lib.login_required import login_required
 from lib.space_repository import SpaceRepository
 from lib.space import Space
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.user_repository import UserRepository
+from lib.booking_repository import BookingRepository
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -77,8 +77,24 @@ def create_space():
     space_repository.create(space)
     return redirect("/")
 
+@app.route('/host/bookings', methods=['GET'])
+@login_required
+def host_page():
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    bookings = booking_repo.get_bookings_by_host_id(session['user_id'])
+    return render_template('host_page.html', bookings=bookings)
 
-
+@app.route('/host/bookings/<id>', methods=['POST'])
+@login_required
+def confirm_booking(id):
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    host_id = booking_repo.find_host_id_by_booking_id(id)
+    if host_id is None or host_id != session['user_id']:
+        return redirect('/')
+    booking_repo.confirm_booking(id)
+    return redirect('/host/bookings')
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
