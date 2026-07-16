@@ -11,8 +11,8 @@
     <body>
         <header>
             <nav>
-            <a href="/signup">Sign up</a>
-            <a href="/login">Log in</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/login">Log In</a>
             <a href="/spaces">Create a Space</a>
             </nav>
             <h1>MakersBnB</h1>
@@ -24,6 +24,7 @@
                 <p> Description: {{ space.description }} </p>  
                 <p> Address: {{ space.address }} </p>  
                 <p> Price: £{{ space.price_per_night }}</p>
+                <p> Contact {{ space.user_email }} to make a booking for this space.</p>
             {% endfor %}
     </body>
 </html>
