@@ -3,6 +3,7 @@ DROP SEQUENCE IF EXISTS users_id_seq;
 DROP TABLE IF EXISTS spaces CASCADE;
 DROP SEQUENCE IF EXISTS spaces_id_seq;
 DROP TABLE IF EXISTS bookings CASCADE;
+DROP SEQUENCE IF EXISTS bookings_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
 CREATE TABLE users (
@@ -22,10 +23,13 @@ CREATE TABLE spaces (
     constraint fk_user foreign key(user_id) references users(id) on delete cascade -- Deletes user-associated-spaces when a user is deleted
 );
 
+CREATE SEQUENCE IF NOT EXISTS bookings_id_seq;
 CREATE TABLE bookings (
+    id SERIAL PRIMARY KEY,
     space_id INT,
     user_id INT, -- this is the id of the user who booked it
     date DATE,
+    confirmed BOOLEAN,
     constraint fk_spaceid foreign key(space_id) references spaces(id) on delete cascade,
     constraint fk_userid foreign key(user_id) references users(id) on delete cascade
 );
@@ -40,9 +44,11 @@ INSERT INTO spaces (name, description, address, price_per_night, user_id) VALUES
     ('Top House', 'Bungalow', '15 Fake Road, Faketown', 99.00, 2),
     ('Party House', 'Penthouse', '85 Fake Road, Faketown', 200.00, 3);
 
-INSERT INTO bookings (space_id, user_id, date) VALUES
-    (1, 2, '2026-01-01'),
-    (1, 3, '2026-01-03'),
-    (3, 2, '2026-01-07'),
-    (3, 1, '2026-05-25'),
-    (2, 1, '2026-05-25');
+INSERT INTO bookings (space_id, user_id, date, confirmed) VALUES
+    (1, 2, '2026-01-01', FALSE),
+    (1, 3, '2026-01-03', FALSE),
+    (3, 2, '2026-01-07', FALSE),
+    (3, 1, '2026-05-25', FALSE),
+    (2, 1, '2026-05-25', FALSE),
+    (1, 2, '2026-02-02', TRUE),
+    (2, 3, '2026-03-05', TRUE);
