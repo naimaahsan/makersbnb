@@ -80,6 +80,7 @@ def create_space():
     return redirect("/")
 
 @app.route('/spaces/<int:id>', methods=["GET"])
+@login_required
 def space_details(id):
     connection = get_flask_database_connection(app)
     space_repository = SpaceRepository(connection)
@@ -88,6 +89,7 @@ def space_details(id):
     return render_template("space_details.html", space=space)
 
 @app.route('/spaces/<int:id>', methods=["POST"])
+@login_required
 def create_booking(id):
     connection = get_flask_database_connection(app)
     booking_repository = BookingRepository(connection)
