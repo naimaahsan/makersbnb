@@ -96,6 +96,7 @@ def confirm_booking(id):
         return redirect('/')
     booking_repo.confirm_booking(id)
     return redirect('/host/bookings')
+
 @app.route('/mybookings', methods=["GET"])
 @login_required
 def get_my_booking():
