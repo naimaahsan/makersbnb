@@ -1,15 +1,15 @@
 import os
 from flask import Flask, request, render_template, redirect, session, redirect
-from lib.database_connection import get_flask_database_connection, DatabaseConnection
-from lib.user_repository import *
-from lib.login_required import *
-from lib.database_connection import DatabaseConnection
+from lib.database_connection import get_flask_database_connection
+from lib.user_repository import UserRepository
+from lib.login_required import login_required
 from lib.space_repository import SpaceRepository
 from lib.space import Space
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.user_repository import UserRepository
+from lib.booking_repository import BookingRepository
 from lib.my_booking_repository import MyBookingRepository
 
 # Create a new Flask app
@@ -26,7 +26,7 @@ app.secret_key = 'dev-secret-key'
 def get_index():
     connection = get_flask_database_connection(app)
     spaces_repository = SpaceRepository(connection)
-    spaces = spaces_repository.all()
+    spaces = spaces_repository.all_with_email()
     return render_template('index.html', spaces=spaces)
 
 
@@ -78,6 +78,24 @@ def create_space():
     space_repository.create(space)
     return redirect("/")
 
+@app.route('/host/bookings', methods=['GET'])
+@login_required
+def host_page():
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    bookings = booking_repo.get_bookings_by_host_id(session['user_id'])
+    return render_template('host_page.html', bookings=bookings)
+
+@app.route('/host/bookings/<id>', methods=['POST'])
+@login_required
+def confirm_booking(id):
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    host_id = booking_repo.find_host_id_by_booking_id(id)
+    if host_id is None or host_id != session['user_id']:
+        return redirect('/')
+    booking_repo.confirm_booking(id)
+    return redirect('/host/bookings')
 @app.route('/mybookings', methods=["GET"])
 @login_required
 def get_my_booking():

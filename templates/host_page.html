@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Bookings</title>
+</head>
+<body>
+    <h1>Bookings requests for my properties</h1>
+    {% for booking in bookings %}
+    <div>
+        <div>
+            <p data-testid="property_name">Property: {{booking.space_name}}</p>
+            <p>Date: {{booking.date}}</p>
+            <p>Requester email: {{booking.requester_email}}</p>
+            <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
+            {% if not booking.confirmed %}
+            <form action="/host//bookings/{{booking.id}}" method="post">
+                <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
