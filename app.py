@@ -10,6 +10,7 @@ from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.user_repository import UserRepository
 from lib.booking_repository import BookingRepository
+from lib.my_booking_repository import MyBookingRepository
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -95,6 +96,18 @@ def confirm_booking(id):
         return redirect('/')
     booking_repo.confirm_booking(id)
     return redirect('/host/bookings')
+
+@app.route('/mybookings', methods=["GET"])
+@login_required
+def get_my_booking():
+    connection = get_flask_database_connection(app)
+    my_booking_repository = MyBookingRepository(connection)
+
+    user_id = session['user_id']
+
+    user_bookings = my_booking_repository.find_by_user_id(user_id)
+    return render_template("/mybookings.html", bookings=user_bookings, user_id=user_id)
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
