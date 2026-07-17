@@ -75,7 +75,7 @@ def create_space():
     connection = get_flask_database_connection(app) 
     space_repository = SpaceRepository(connection)
     space_details = request.form
-    space = Space(space_details["name"], space_details["address"], space_details["description"], space_details["price_per_night"], session['user_id'])
+    space = Space(space_details["name"], space_details["description"], space_details["address"], space_details["price_per_night"], session['user_id'])
     space_repository.create(space)
     return redirect("/")
 
