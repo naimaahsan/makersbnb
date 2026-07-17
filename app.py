@@ -10,6 +10,7 @@ from lib.database_connection import get_flask_database_connection
 from lib.space_repository import SpaceRepository
 from lib.user_repository import UserRepository
 from lib.booking_repository import BookingRepository
+from lib.booking import Booking
 from lib.my_booking_repository import MyBookingRepository
 
 # Create a new Flask app
@@ -106,7 +107,30 @@ def get_my_booking():
     user_id = session['user_id']
 
     user_bookings = my_booking_repository.find_by_user_id(user_id)
-    return render_template("/mybookings.html", bookings=user_bookings, user_id=user_id)
+    return render_template("/mybookings.html", bookings=user_bookings, user_id=user_id)@app.route('/spaces/<int:id>', methods=["GET"])
+@login_required
+def space_details(id):
+    connection = get_flask_database_connection(app)
+    space_repository = SpaceRepository(connection)
+    space = space_repository.find(id)
+
+    return render_template("space_details.html", space=space)
+
+@app.route('/spaces/<int:id>', methods=["POST"])
+@login_required
+def create_booking(id):
+    connection = get_flask_database_connection(app)
+    booking_repository = BookingRepository(connection)
+    booking_details = request.form
+
+    date = booking_details["date"]
+    user_id = session['user_id']
+
+    booking = Booking(id, user_id, date)
+
+    booking_repository.create_booking(booking)
+    
+    return redirect("/")
 
 
 # These lines start the server if you run this file directly

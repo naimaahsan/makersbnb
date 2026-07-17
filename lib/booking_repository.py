@@ -41,3 +41,7 @@ class BookingRepository:
         if len(host_ids) != 1:
             return None
         return host_ids[0]['id']
+    
+    def create_booking(self, booking):
+        self._connection.execute("INSERT INTO bookings (space_id, user_id, date, confirmed) VALUES (%s, %s, %s, %s)", [booking.space_id, booking.user_id, booking.date, booking.confirmed])
+        return None

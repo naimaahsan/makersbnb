@@ -42,3 +42,25 @@ def test_find_booking_with_host_id(clean_db):
     assert host_id == 1
     host_id = booking_repo.find_host_id_by_booking_id(3)
     assert host_id == 2
+
+"""
+Creating a booking inserts new booking data 
+"""
+def test_create_booking(clean_db, db_connection):
+    booking_repo = BookingRepository(clean_db)
+
+    test_booking = Booking(1, 3, "2000-01-01")
+
+    booking_repo.create_booking(test_booking)
+
+    row = db_connection.execute("SELECT * FROM bookings WHERE id = 8;")[0]
+
+    latest_booking = Booking(row["space_id"], row["user_id"], row["date"], row["confirmed"], row["id"])
+
+    print(latest_booking.date)
+
+    assert latest_booking.id == 8
+    assert latest_booking.space_id == 1
+    assert latest_booking.user_id == 3
+    assert latest_booking.date == datetime.date(2000, 1, 1)
+    assert latest_booking.confirmed == False
