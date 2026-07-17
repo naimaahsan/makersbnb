@@ -45,3 +45,17 @@ class BookingRepository:
     def create_booking(self, booking):
         self._connection.execute("INSERT INTO bookings (space_id, user_id, date, confirmed) VALUES (%s, %s, %s, %s)", [booking.space_id, booking.user_id, booking.date, booking.confirmed])
         return None
+    
+    def valid_booking(self, booking):
+
+        already_booked = []
+
+        rows = self._connection.execute("SELECT * FROM bookings WHERE space_id = %s AND date = %s AND confirmed = True", [booking.space_id, booking.date])
+
+        for row in rows:
+            already_booked.append(row)
+
+        if already_booked:
+            return False
+        else:
+            return True

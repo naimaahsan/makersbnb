@@ -130,9 +130,11 @@ def create_booking(id):
 
     booking = Booking(id, user_id, date)
 
-    booking_repository.create_booking(booking)
-    
-    return redirect("/mybookings")
+    if booking_repository.valid_booking(booking):
+        booking_repository.create_booking(booking)
+        return redirect("/mybookings")
+    else:
+        return render_template("booking_failed.html")
 
 
 # These lines start the server if you run this file directly
