@@ -6,7 +6,7 @@
             Head to https://github.com/makersacademy/web-applications-in-python/blob/main/pills/loading_css_or_static_files.md
             If you're wondering how the CSS file below is being loaded.
         -->
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <header>
@@ -24,13 +24,18 @@
             <h1>MakersBnB</h1>
         </header>
        
-
+            <div class="list">
             {% for space in spaces %}
-                <h3><a href="/spaces/{{ space.id }}">{{ space.name }}</a></h3>
-                <p> Description: {{ space.description }} </p>  
-                <p> Address: {{ space.address }} </p>  
-                <p> Price: £{{ space.price_per_night }}</p>
-                <p> Contact {{ space.user_email }} to make a booking for this space.</p>
+                <div class="list-item">
+                    <div class="list-content">
+                        <h3><a href="/spaces/{{ space.id }}">{{ space.name }}</a></h3>
+                        <p> Description: {{ space.description }} </p>  
+                        <p> Address: {{ space.address }} </p>  
+                        <p> Price: £{{ space.price_per_night }}</p>
+                        <p> Contact {{ space.user_email }} to make a booking for this space.</p>
+                    </div>
+                </div>
             {% endfor %}
+            </div>
     </body>
 </html>
