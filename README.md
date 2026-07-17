@@ -29,7 +29,7 @@ Everyone in the team should then clone that copy of the repo to their local mach
 (makersbnb-venv); createdb MAKERSBNB_TEST
 
 # Open lib/database_connection.py and change the database names
-(makersbnb-venv); open lib/database_connection.py
+(makersbnb-venvopen lib/database_connection.py); 
 
 # Run the tests (with extra logging)
 (makersbnb-venv); pytest -sv

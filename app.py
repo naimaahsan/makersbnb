@@ -1,9 +1,8 @@
 import os
 from flask import Flask, request, render_template, redirect, session, redirect
-from lib.database_connection import get_flask_database_connection, DatabaseConnection
-from lib.user_repository import *
-from lib.login_required import *
-from lib.database_connection import DatabaseConnection
+from lib.database_connection import get_flask_database_connection
+from lib.user_repository import UserRepository
+from lib.login_required import login_required
 from lib.space_repository import SpaceRepository
 from lib.space import Space
 from flask import Flask, request, render_template
@@ -12,6 +11,7 @@ from lib.space_repository import SpaceRepository
 from lib.user_repository import UserRepository
 from lib.booking_repository import BookingRepository
 from lib.booking import Booking
+from lib.my_booking_repository import MyBookingRepository
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -79,7 +79,35 @@ def create_space():
     space_repository.create(space)
     return redirect("/")
 
-@app.route('/spaces/<int:id>', methods=["GET"])
+@app.route('/host/bookings', methods=['GET'])
+@login_required
+def host_page():
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    bookings = booking_repo.get_bookings_by_host_id(session['user_id'])
+    return render_template('host_page.html', bookings=bookings)
+
+@app.route('/host/bookings/<id>', methods=['POST'])
+@login_required
+def confirm_booking(id):
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    host_id = booking_repo.find_host_id_by_booking_id(id)
+    if host_id is None or host_id != session['user_id']:
+        return redirect('/')
+    booking_repo.confirm_booking(id)
+    return redirect('/host/bookings')
+
+@app.route('/mybookings', methods=["GET"])
+@login_required
+def get_my_booking():
+    connection = get_flask_database_connection(app)
+    my_booking_repository = MyBookingRepository(connection)
+
+    user_id = session['user_id']
+
+    user_bookings = my_booking_repository.find_by_user_id(user_id)
+    return render_template("/mybookings.html", bookings=user_bookings, user_id=user_id)@app.route('/spaces/<int:id>', methods=["GET"])
 @login_required
 def space_details(id):
     connection = get_flask_database_connection(app)
