@@ -18,6 +18,9 @@
             <form action="/host//bookings/{{booking.id}}" method="post">
                 <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
             </form>
+            <form action="/host//bookings/{{booking.id}}/delete" method="post">
+                <button data-testid="button_reject_{{booking.id}}" name="submit" value="upvote">Reject Request</button>
+            </form>
             {% endif %}
         </div>
     </div>

@@ -64,3 +64,27 @@ def test_create_booking(clean_db, db_connection):
     assert latest_booking.user_id == 3
     assert latest_booking.date == datetime.date(2000, 1, 1)
     assert latest_booking.confirmed == False
+
+def test_delete_booking(clean_db):
+    booking_repo = BookingRepository(clean_db)
+    bookings = booking_repo.get_bookings_by_host_id(1)
+    assert len(bookings) == 5
+
+    result = booking_repo.delete_booking(5)
+    assert result is None
+    bookings = booking_repo.get_bookings_by_host_id(1)
+    assert len(bookings) == 4
+    assert HostBooking(2, 1, datetime.date(2026, 5, 25), False, 'user1@email.com', 'My House', 5) not in bookings
+    assert bookings == [
+        HostBooking(1, 2, datetime.date(2026, 1, 1), False, 'user2@email.com', 'Cool House', 1), 
+        HostBooking(1, 3, datetime.date(2026, 1, 3), False, 'user3@email.com', 'Cool House', 2), 
+        HostBooking(1, 2, datetime.date(2026, 2, 2), True, 'user2@email.com', 'Cool House', 6),
+        HostBooking(2, 3, datetime.date(2026, 3, 5), True, 'user3@email.com', 'My House', 7) 
+    ]
+
+def test_check_booking_confirmed(clean_db):
+    booking_repo = BookingRepository(clean_db)
+    confirmed1 = booking_repo.check_confirmed(7)
+    assert confirmed1 == True
+    confirmed2 = booking_repo.check_confirmed(1)
+    assert confirmed2 == False
