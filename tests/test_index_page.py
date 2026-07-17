@@ -21,7 +21,7 @@ def test_user_create_new_space_journey(page: Page, clean_db):
     page.get_by_role("button", name="Login").click()
     expect(page).to_have_url("http://localhost:5001/")
 
-    page.get_by_text("Create a Space").click()
+    page.get_by_text("List your Space").click()
     create_space_h1 = page.locator('h1')
     expect(create_space_h1).to_have_text('Spaces Available')
     page.get_by_placeholder("Name *").fill('ASDASDASDASDASD')
