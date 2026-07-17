@@ -98,6 +98,17 @@ def confirm_booking(id):
     booking_repo.confirm_booking(id)
     return redirect('/host/bookings')
 
+@app.route('/host/bookings/<id>/delete', methods=['POST'])
+@login_required
+def reject_booking(id):
+    connection = get_flask_database_connection(app) 
+    booking_repo = BookingRepository(connection)
+    host_id = booking_repo.find_host_id_by_booking_id(id)
+    if host_id != session['user_id'] or booking_repo.check_confirmed(id):
+        return redirect('/')
+    booking_repo.delete_booking(id)
+    return redirect('/host/bookings')
+
 @app.route('/mybookings', methods=["GET"])
 @login_required
 def get_my_booking():
@@ -135,7 +146,6 @@ def create_booking(id):
         return redirect("/mybookings")
     else:
         return render_template("booking_failed.html")
-
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

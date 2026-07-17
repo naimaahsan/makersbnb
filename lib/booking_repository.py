@@ -59,3 +59,18 @@ class BookingRepository:
             return False
         else:
             return True
+        
+    def delete_booking(self, id):
+        self._connection.execute(
+            "DELETE FROM bookings " \
+            "WHERE id = %s", [id]
+        )
+
+    def check_confirmed(self, id):
+        rows = self._connection.execute(
+            "SELECT * FROM bookings " \
+            "WHERE id = %s", [id]
+        )
+        if not rows:
+            return False
+        return rows[0]['confirmed']

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <nav>
+            <a href="/" class="nav-logo-container">
+                <img src="/static/bnb logo 3.png" alt="MakersBnB Logo" class="nav-logo-img">
+            </a>
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/"> Explore Spaces</a>
+            <a href="/spaces">List your Space</a>
+            <a href="/mybookings">My Bookings</a>
+            <a href="/host/bookings"> Manage Requests</a>
+        </nav>
         <title>MakersBnB</title>
         <!--
             Head to https://github.com/makersacademy/web-applications-in-python/blob/main/pills/loading_css_or_static_files.md
@@ -10,12 +21,6 @@
     </head>
     <body>
         <header>
-            <nav>
-            <a href="/signup">Sign Up</a>
-            <a href="/login">Log In</a>
-            <a href="/spaces">Create a Space</a>
-            <a href="/">Available Spaces</a>
-            </nav>
             <h1>{{ space.name }}</h1>
         </header>
        

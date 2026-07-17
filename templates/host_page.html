@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <nav>
+            <a href="/" class="nav-logo-container">
+                <img src="/static/bnb logo 3.png" alt="MakersBnB Logo" class="nav-logo-img">
+            </a>
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/"> Explore Spaces</a>
+            <a href="/spaces">List your Space</a>
+            <a href="/mybookings">My Bookings </a>
+            <a href="/host/bookings"> Manage Requests</a>
+    </nav>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host Bookings</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h1>Bookings requests for my properties</h1>
@@ -17,6 +29,9 @@
             {% if not booking.confirmed %}
             <form action="/host//bookings/{{booking.id}}" method="post">
                 <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
+            </form>
+            <form action="/host//bookings/{{booking.id}}/delete" method="post">
+                <button data-testid="button_reject_{{booking.id}}" name="submit" value="upvote">Reject Request</button>
             </form>
             {% endif %}
         </div>

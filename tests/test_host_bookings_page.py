@@ -46,3 +46,22 @@ def test_booking_page_confirm_button_changes_status(page: Page, clean_db):
         'Confirmed',
         'Confirmed'
     ]
+
+def test_booking_page_deny_button_removes_booking(page: Page, clean_db):
+    login(page)
+    page.goto('http://localhost:5001/host/bookings')
+    page.get_by_test_id('button_reject_1').click()
+    confirm_statuses = page.get_by_test_id('confirm_status').all_inner_texts()
+    assert confirm_statuses == [
+        'Pending confirmation',
+        'Pending confirmation',
+        'Confirmed',
+        'Confirmed'
+    ]
+    page.get_by_test_id('button_reject_5').click()
+    confirm_statuses = page.get_by_test_id('confirm_status').all_inner_texts()
+    assert confirm_statuses == [
+        'Pending confirmation',
+        'Confirmed',
+        'Confirmed'
+    ]
