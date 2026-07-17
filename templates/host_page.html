@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host Bookings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='list.css') }}">
 </head>
 <body>
     <h1>Bookings requests for my properties</h1>
+    <div class="list"></div>
     {% for booking in bookings %}
-    <div>
-        <div>
-            <p data-testid="property_name">Property: {{booking.space_name}}</p>
-            <p>Date: {{booking.date}}</p>
-            <p>Requester email: {{booking.requester_email}}</p>
-            <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
-            {% if not booking.confirmed %}
-            <form action="/host//bookings/{{booking.id}}" method="post">
-                <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
-            </form>
-            <form action="/host//bookings/{{booking.id}}/delete" method="post">
-                <button data-testid="button_reject_{{booking.id}}" name="submit" value="upvote">Reject Request</button>
-            </form>
+        <div class="list-item">
+            <div class="list-content">
+                <p data-testid="property_name">Property: {{booking.space_name}}</p>
+                <p>Date: {{booking.date}}</p>
+                <p>Requester email: {{booking.requester_email}}</p>
+                <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
+                {% if not booking.confirmed %}
+                <form action="/host//bookings/{{booking.id}}" method="post">
+                    <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
+                </form>
+                <form action="/host//bookings/{{booking.id}}/delete" method="post">
+                    <button data-testid="button_reject_{{booking.id}}" name="submit" value="upvote">Reject Request</button>
+                </form>
             {% endif %}
+            </div>   
         </div>
-    </div>
     {% endfor %}
+    </div>
 </body>
 </html>
