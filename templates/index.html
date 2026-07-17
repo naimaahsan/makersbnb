@@ -22,7 +22,7 @@
                 <a href="/host/bookings"> Manage Requests</a>
             </nav>
 
-            <h1>MakersBnB</h1>
+            <h1>Explore Spaces</h1>
         </header>
        
             <div class="list">
@@ -30,10 +30,9 @@
                 <div class="list-item">
                     <div class="list-content">
                         <h3><a href="/spaces/{{ space.id }}">{{ space.name }}</a></h3>
-                        <p> Description: {{ space.description }} </p>  
-                        <p> Address: {{ space.address }} </p>  
-                        <p> Price: £{{ space.price_per_night }}</p>
-                        <p> Contact {{ space.user_email }} to make a booking for this space.</p>
+                        <p><strong> Description: </strong>{{ space.description }} </p>  
+                        <p> <strong>Address: </strong> {{ space.address }} </p>  
+                        <p> <strong>Price: </strong> £{{ space.price_per_night }}</p>
                     </div>
                 </div>
             {% endfor %}

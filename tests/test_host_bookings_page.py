@@ -11,18 +11,18 @@ def test_booking_page_loads(page: Page, clean_db):
     page.goto('http://localhost:5001/host/bookings')
 
     h1 = page.locator('h1')
-    expect(h1).to_have_text('Bookings requests for my properties')
+    expect(h1).to_have_text('Bookings requests for my spaces')
 
 def test_booking_page_has_expected_bookings(page: Page, clean_db):
     login(page)
     page.goto('http://localhost:5001/host/bookings')
     property_names = page.get_by_test_id('property_name').all_inner_texts()
     assert property_names == [
-        'Property: Cool House',
-        'Property: Cool House',
-        'Property: My House',
-        'Property: Cool House',
-        'Property: My House'
+        'Property:Cool House',
+        'Property:Cool House',
+        'Property:My House',
+        'Property:Cool House',
+        'Property:My House'
     ]
 
 def test_booking_page_confirm_button_changes_status(page: Page, clean_db):

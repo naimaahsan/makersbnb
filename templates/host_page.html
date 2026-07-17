@@ -18,14 +18,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Bookings requests for my properties</h1>
+    <h1>Bookings requests for my spaces</h1>
     <div class="list">
     {% for booking in bookings %}
         <div class="list-item">
             <div class="list-content">
-                <h3 data-testid="property_name">Property: {{booking.space_name}}</h3>
-                <p>Date: {{booking.date}}</p>
-                <p>Requester email: {{booking.requester_email}}</p>
+                <h3 data-testid="property_name"><strong>Property:</strong>{{booking.space_name}}</h3>
+                <p><strong>Date: </strong>{{booking.date}}</p>
+                <p><strong>Requester email: </strong>{{booking.requester_email}}</p>
                 <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
                 {% if not booking.confirmed %}
                 <form action="/host//bookings/{{booking.id}}" method="post">
