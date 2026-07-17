@@ -130,7 +130,7 @@ def create_booking(id):
 
     booking_repository.create_booking(booking)
     
-    return redirect("/")
+    return redirect("/mybookings")
 
 
 # These lines start the server if you run this file directly
