@@ -26,9 +26,9 @@
                     <p> Price: £{{ booking.price_per_night }} per night </p>
 
                     {% if booking.confirmed %}
-                        <span> Status: Approved </span>
+                        <p> Status: Approved </p>
                     {% else %}
-                        <span> Status: Pending</span>
+                        <p> Status: Pending</p>
                     {% endif %}
                 {% endfor %}
             {% else %}
