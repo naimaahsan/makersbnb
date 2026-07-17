@@ -65,6 +65,32 @@ def test_create_booking(clean_db, db_connection):
     assert latest_booking.date == datetime.date(2000, 1, 1)
     assert latest_booking.confirmed == False
 
+"""
+A user cannot create a booking if that space and date
+has already been taken by someone else (host has confirmed)
+"""
+def test_invalid_booking_gets_rejected(clean_db):
+    booking_repo = BookingRepository(clean_db)
+
+    invalid_booking = Booking(1, 3, "2026-02-02")
+
+    result = booking_repo.valid_booking(invalid_booking)
+
+    assert result == False
+
+"""
+A user can create a booking if that space and date
+has not been taken by someone else or if host has not confirmed
+"""
+def test_valid_booking_is_allowed(clean_db):
+    booking_repo = BookingRepository(clean_db)
+
+    valid_booking = Booking(1, 3, "2026-07-17")
+
+    result = booking_repo.valid_booking(valid_booking)
+
+    assert result == True
+    
 def test_delete_booking(clean_db):
     booking_repo = BookingRepository(clean_db)
     bookings = booking_repo.get_bookings_by_host_id(1)

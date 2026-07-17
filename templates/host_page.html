@@ -15,27 +15,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Host Bookings</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Bookings requests for my spaces</h1>
+    <div class="list">
     {% for booking in bookings %}
-    <div>
-        <div>
-            <p data-testid="property_name"><strong>Property:</strong>{{booking.space_name}}</p>
-            <p><strong>Date: </strong>{{booking.date}}</p>
-            <p><strong>Requester email: </strong>{{booking.requester_email}}</p>
-            <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
-            {% if not booking.confirmed %}
-            <form action="/host//bookings/{{booking.id}}" method="post">
-                <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
-            </form>
-            <form action="/host//bookings/{{booking.id}}/delete" method="post">
-                <button data-testid="button_reject_{{booking.id}}" name="submit" value="upvote">Reject Request</button>
-            </form>
+        <div class="list-item">
+            <div class="list-content">
+                <h3 data-testid="property_name"><strong>Property:</strong>{{booking.space_name}}</h3>
+                <p><strong>Date: </strong>{{booking.date}}</p>
+                <p><strong>Requester email: </strong>{{booking.requester_email}}</p>
+                <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
+                {% if not booking.confirmed %}
+                <form action="/host//bookings/{{booking.id}}" method="post">
+                    <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>
+                </form>
+                <form action="/host//bookings/{{booking.id}}/delete" method="post">
+                    <button data-testid="button_reject_{{booking.id}}" name="submit" value="upvote">Reject Request</button>
+                </form>
             {% endif %}
+            </div>   
         </div>
-    </div>
     {% endfor %}
+    </div>
 </body>
 </html>

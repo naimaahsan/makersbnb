@@ -12,18 +12,20 @@
             <a href="/host/bookings"> Manage Requests</a>
         </nav>
         <title> My Bookings</title>
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
 
     <body>
         <h1> My Bookings</h1>
         <main>
             {% if bookings %}
+            <div class="list">
                 {% for booking in bookings %}
-
-                    <h3> {{ booking.space_name }}</h3>
-                    <p> Date: {{ booking.date }} </p>
-                    <p> Price: £{{ booking.price_per_night }} per night </p>
+                <div class="list-item">
+                    <div class="list-content">
+                        <h3> {{ booking.space_name }}</h3>
+                        <p> Date: {{ booking.date }} </p>
+                        <p> Price: £{{ booking.price_per_night }} per night </p>
 
                     {% if booking.confirmed %}
                         <p> Status: Approved </p>
@@ -31,6 +33,7 @@
                         <p> Status: Pending</p>
                     {% endif %}
                 {% endfor %}
+            </div>
             {% else %}
                 <p>You haven't requested any bookings yet!</p>
                 <p>View spaces you can book <a href="/">here</a></p>
