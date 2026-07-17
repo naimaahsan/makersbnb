@@ -2,15 +2,15 @@
 <html>
     <head>
         <nav>
-            <a href="/" class="nav-logo-container">
-                <img src="/static/bnb logo 3.png" alt="MakersBnB Logo" class="nav-logo-img">
-            </a>
-            <a href="/login">Log In</a>
-            <a href="/signup">Sign Up</a>
-            <a href="/"> Explore Spaces</a>
-            <a href="/spaces">List your Space</a>
-            <a href="/mybookings">My Bookings</a>
-            <a href="/host/bookings"> Manage Requests</a>
+                    <a href="/" class="nav-logo-container">
+                        <img src="/static/bnb logo 3.png" alt="MakersBnB Logo" class="nav-logo-img">
+                    </a>
+                    <a href="/login">Log In</a>
+                    <a href="/signup">Sign Up</a>
+                    <a href="/"> Explore Spaces</a>
+                    <a href="/spaces">List your Space</a>
+                    <a href="/mybookings">My Bookings</a>
+                    <a href="/host/bookings"> Manage Requests</a>
         </nav>
         <title>MakersBnB</title>
         <!--
@@ -24,7 +24,9 @@
             <h1>{{ space.name }}</h1>
         </header>
        
-
+            <div class="list">
+                <div class="list-item">
+                    <div class="list-content">
                 <p> Description: {{ space.description }} </p>  
                 <p> Address: {{ space.address }} </p>  
                 <p> Price: £{{ space.price_per_night }}</p>
@@ -35,6 +37,9 @@
                     
                     <button type="submit" value="Submit">Submit</button>
                     <p>*Required</p>
-            </form>
+                </form>
+                </div>
+                </div>
+            </div>
     </body>
 </html>
