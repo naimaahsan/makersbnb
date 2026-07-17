@@ -45,3 +45,18 @@ class BookingRepository:
     def create_booking(self, booking):
         self._connection.execute("INSERT INTO bookings (space_id, user_id, date, confirmed) VALUES (%s, %s, %s, %s)", [booking.space_id, booking.user_id, booking.date, booking.confirmed])
         return None
+    
+    def delete_booking(self, id):
+        self._connection.execute(
+            "DELETE FROM bookings " \
+            "WHERE id = %s", [id]
+        )
+
+    def check_confirmed(self, id):
+        rows = self._connection.execute(
+            "SELECT * FROM bookings " \
+            "WHERE id = %s", [id]
+        )
+        if not rows:
+            return False
+        return rows[0]['confirmed']
