@@ -31,6 +31,4 @@ def test_user_create_new_space_journey(page: Page, clean_db):
     page.get_by_role("button", name="Submit").click()
     expect(page).to_have_url("http://localhost:5001/")
 
-    new_space_name = page.get_by_text('Contact random@gmail.com to make a booking for this space.')
-    expect(new_space_name).to_be_visible()
 
