@@ -23,10 +23,12 @@
     {% for booking in bookings %}
         <div class="list-item">
             <div class="list-content">
-                <h3 data-testid="property_name"><strong>Property:</strong>{{booking.space_name}}</h3>
+                <h3 data-testid="property_name"><strong>Property: </strong>{{booking.space_name}}</h3>
                 <p><strong>Date: </strong>{{booking.date}}</p>
                 <p><strong>Requester email: </strong>{{booking.requester_email}}</p>
-                <p data-testid="confirm_status">{{'Confirmed' if booking.confirmed else 'Pending confirmation'}}</p>
+                <p data-testid="confirm_status" class="status-badge {{ 'confirmed' if booking.confirmed else 'pending' }}">
+                    {{'Confirmed' if booking.confirmed else 'Pending confirmation'}}
+                </p>
                 {% if not booking.confirmed %}
                 <form action="/host//bookings/{{booking.id}}" method="post">
                     <button data-testid="button_{{booking.id}}" name="submit" value="upvote">Confirm Booking</button>

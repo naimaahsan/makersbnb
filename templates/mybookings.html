@@ -28,9 +28,13 @@
                         <p> Price: £{{ booking.price_per_night }} per night </p>
                     
                     {% if booking.confirmed %}
-                        <p> Status: Approved </p>
+                        <p data-testid="confirm_status" style="display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin: 8px 0; background-color: #FFF5F5; color: #FF5A5F; border: 1px solid #FED7D7;">
+                            Status: Approved
+                        </p>
                     {% else %}
-                        <p> Status: Pending</p>
+                        <p data-testid="confirm_status" style="display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin: 8px 0; background-color: #F1F5F9; color: #475569; border: 1px solid #CBD5E1;">
+                            Status: Pending
+                        </p>
                     {% endif %}
                     </div>
                 </div>

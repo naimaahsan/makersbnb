@@ -33,6 +33,10 @@
                         <p><strong> Description: </strong>{{ space.description }} </p>  
                         <p> <strong>Address: </strong> {{ space.address }} </p>  
                         <p> <strong>Price: </strong> £{{ space.price_per_night }}</p>
+
+                        <a href="/spaces/{{ space.id }}">
+                            <button type="button">View Space</button>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
